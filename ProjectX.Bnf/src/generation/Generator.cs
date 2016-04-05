@@ -126,8 +126,9 @@ namespace ProjectX.Bnf.generation
         private CodeObjectCreateExpression GetNonterminal(XmlNode nonterminalNode)
         {
             string name = nonterminalNode.InnerText.Replace("-", "_");
-            var nonterminal = new CodeObjectCreateExpression(name);
-            return nonterminal;
+
+            var result = new CodeObjectCreateExpression(name);
+            return result;
         }
 
         private CodeObjectCreateExpression GetChoice(XmlNode choiceNode)
