@@ -67,7 +67,7 @@ namespace ProjectX.Generator
             string name = nonterminalNode.InnerText.Replace("-", "_");
 
             CodeTypeDeclaration productionType = new CodeTypeDeclaration(name);
-            productionType.BaseTypes.Add(typeof (Nonterminal));
+            productionType.BaseTypes.Add(typeof(Nonterminal));
 
             var setProductionMethod = GetSetProductionMethod(productionNode);
             productionType.Members.Add(setProductionMethod);
@@ -83,7 +83,7 @@ namespace ProjectX.Generator
                 GetProductionAssignmentFromExpression(productionNode.FirstChild.NextSibling);
 
             var assignment = new CodeAssignStatement(
-                new CodeVariableReferenceExpression("Production"), 
+                new CodeVariableReferenceExpression("Production"),
                 newProduction);
 
             setProductionMethod.Statements.Add(assignment);

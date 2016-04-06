@@ -1,33 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ProjectX.Finite;
+﻿using ProjectX.Finite;
 
 namespace ProjectX.Bnf
 {
     public class Sequence : Production
     {
-        private List<Production> sequence; 
+        private Production[] sequence;
 
         public Sequence(params Production[] sequence)
         {
-            this.sequence = sequence.ToList();
+            this.sequence = sequence;
         }
 
-        public override Nfa GetStateMachine(Dictionary<Type, NfaState> outer)
+        public override StateMachine GetStateMachine()
         {
-            Nfa result = sequence[0].GetStateMachine(outer);
-            for(int i = 1; i < sequence.Count; i++)
+            StateMachine result = null;
+            foreach (Production production in sequence)
             {
-                result = Nfa.BuildConcatenation(result, sequence[i].GetStateMachine(outer));
+                var productionStateMachine = production.GetStateMachine();
+                if (result == null)
+                {
+                    result = productionStateMachine;
+                }
+                else
+                {
+                    result = StateMachine.BuildConcatenation(result, productionStateMachine);
+                }
             }
 
+            result.Label("sequence:begin", "sequence:end");
             return result;
-        }
-
-        public void AddToSequence(Production production)
-        {
-            sequence.Add(production);
         }
     }
 }

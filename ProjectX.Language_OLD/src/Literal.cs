@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProjectX.Bnf;
+using ProjectX.Finite;
 
 namespace ProjectX.Language
 {
@@ -51,7 +52,7 @@ namespace ProjectX.Language
         {
             Production = 
                 new Sequence(
-                    new Character("0-9"),
+                    new CharacterClass("[0-9]"),
                     new Optional(
                         new Number()));
         }
@@ -72,7 +73,7 @@ namespace ProjectX.Language
     {
         public override void SetProduction()
         {
-            Production =
+            Production = 
                 new Sequence(
                     new Terminal("\""),
                     new StringChars(),
@@ -86,7 +87,7 @@ namespace ProjectX.Language
         {
             Production = 
                 new Sequence(
-                    new Character(@"^\n") - '\a' - '"',
+                    new CharacterClass(".") - '"',
                     new Optional(
                         new StringChars()));
         }

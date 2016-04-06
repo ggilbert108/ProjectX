@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C3DF210-4B0A-4ED9-8183-379FCABC8244}</ProjectGuid>
+    <ProjectGuid>{B80FE709-5AB8-49FB-94DA-DC4B06597808}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectX.Finite</RootNamespace>
-    <AssemblyName>ProjectX.Finite</AssemblyName>
+    <RootNamespace>ProjectX.Bnf</RootNamespace>
+    <AssemblyName>ProjectX.Bnf</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,11 +42,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Character.cs" />
-    <Compile Include="src\Path.cs" />
-    <Compile Include="src\StateMachine.cs" />
-    <Compile Include="src\Transition.cs" />
-    <Compile Include="src\State.cs" />
-    <Compile Include="src\Util.cs" />
+    <Compile Include="src\CharacterClass.cs" />
+    <Compile Include="src\Choice.cs" />
+    <Compile Include="src\Nonterminal.cs" />
+    <Compile Include="src\Optional.cs" />
+    <Compile Include="src\Production.cs" />
+    <Compile Include="src\Sequence.cs" />
+    <Compile Include="src\Terminal.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectX.Finite\ProjectX.Finite.csproj">
+      <Project>{11ffd838-27c5-487e-9a30-9e7a3f8425e4}</Project>
+      <Name>ProjectX.Finite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

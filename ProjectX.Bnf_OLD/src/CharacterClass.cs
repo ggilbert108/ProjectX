@@ -6,7 +6,7 @@ namespace ProjectX.Bnf
     {
         public CharacterClass(string pattern)
         {
-            for (int i = char.MinValue; i < char.MaxValue; i++)
+            for (int i = byte.MinValue; i < byte.MaxValue; i++)
             {
                 char ch = (char) i;
 

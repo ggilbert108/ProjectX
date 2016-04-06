@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C3DF210-4B0A-4ED9-8183-379FCABC8244}</ProjectGuid>
+    <ProjectGuid>{11FFD838-27C5-487E-9A30-9E7A3F8425E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectX.Finite</RootNamespace>
@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,12 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Character.cs" />
-    <Compile Include="src\Path.cs" />
-    <Compile Include="src\StateMachine.cs" />
-    <Compile Include="src\Transition.cs" />
-    <Compile Include="src\State.cs" />
-    <Compile Include="src\Util.cs" />
+    <Compile Include="src\dfa\Dfa.cs" />
+    <Compile Include="src\dfa\DfaState.cs" />
+    <Compile Include="src\nfa\Nfa.cs" />
+    <Compile Include="src\nfa\NfaState.cs" />
+    <Compile Include="src\util\MultiMap.cs" />
+    <Compile Include="src\util\StateSet.cs" />
+    <Compile Include="src\util\Util.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B80FE709-5AB8-49FB-94DA-DC4B06597808}</ProjectGuid>
+    <ProjectGuid>{B712DC41-15C3-457E-B3DF-45594C163386}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectX.Bnf</RootNamespace>
@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Character.cs" />
-    <Compile Include="src\CharacterClass.cs" />
     <Compile Include="src\Choice.cs" />
     <Compile Include="src\Nonterminal.cs" />
     <Compile Include="src\Optional.cs" />
@@ -52,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectX.Finite\ProjectX.Finite.csproj">
-      <Project>{11ffd838-27c5-487e-9a30-9e7a3f8425e4}</Project>
+      <Project>{0c3df210-4b0a-4ed9-8183-379fcabc8244}</Project>
       <Name>ProjectX.Finite</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C3DF210-4B0A-4ED9-8183-379FCABC8244}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{74C6E100-30FC-4573-9336-1F1EFCE42BB5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectX.Finite</RootNamespace>
-    <AssemblyName>ProjectX.Finite</AssemblyName>
+    <RootNamespace>ProjectX.Language</RootNamespace>
+    <AssemblyName>ProjectX.Language</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,13 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Character.cs" />
-    <Compile Include="src\Path.cs" />
-    <Compile Include="src\StateMachine.cs" />
-    <Compile Include="src\Transition.cs" />
-    <Compile Include="src\State.cs" />
-    <Compile Include="src\Util.cs" />
+    <Compile Include="src\Identifier.cs" />
+    <Compile Include="src\Literal.cs" />
+    <Compile Include="src\Productions.cs" />
+    <Compile Include="src\Recursive.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectX.Bnf\ProjectX.Bnf.csproj">
+      <Project>{b80fe709-5ab8-49fb-94da-dc4b06597808}</Project>
+      <Name>ProjectX.Bnf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectX.Finite\ProjectX.Finite.csproj">
+      <Project>{11ffd838-27c5-487e-9a30-9e7a3f8425e4}</Project>
+      <Name>ProjectX.Finite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

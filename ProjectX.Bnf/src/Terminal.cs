@@ -1,15 +1,22 @@
-﻿using System;
+﻿using System.Linq;
+using ProjectX.Finite;
 
 namespace ProjectX.Bnf
 {
     public class Terminal : Sequence
     {
-        public Terminal(string value)
+        private string value;
+
+        public Terminal(string value) : base(
+            (from ch in value
+             select new Character(ch)).ToArray<Production>())
         {
-            foreach (char ch in value)
-            {
-                AddToSequence(new Character(ch));
-            }
+            this.value = value;
+        }
+
+        public override string ToString()
+        {
+            return value;
         }
     }
 }

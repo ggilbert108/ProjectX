@@ -1,48 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ProjectX.Finite;
 
 namespace ProjectX.Bnf
 {
     public class Choice : Production
     {
-        private List<Production> choices;
+        private Production[] choices;
+        private Production chosen;
 
         public Choice(params Production[] choices)
         {
-            this.choices = choices.ToList();
+            this.choices = choices;
+            chosen = null;
         }
 
-        public Choice(Choice other)
+        public override StateMachine GetStateMachine()
         {
-            choices = new List<Production>();
-            foreach (Production choice in other.choices)
-            {
-                choices.Add(choice);
-            }
-        }
+            var productionStateMachines = new List<StateMachine>();
 
-        public override Nfa GetStateMachine(Dictionary<Type, NfaState> outer)
-        {
-            List<Nfa> choiceNfas = new List<Nfa>();
-            foreach (Production production in choices)
+            foreach (Production choice in choices)
             {
-                choiceNfas.Add(production.GetStateMachine(outer));
+                var productionStateMachine = choice.GetStateMachine();
+
+                Production permChoice = choice;
+                //productionStateMachine.ReachedFinalState += (sender, args) =>
+                //{
+                //    chosen = permChoice;
+                //    //Console.WriteLine(permChoice);
+                //};
+
+                productionStateMachines.Add(productionStateMachine);
             }
 
-            Nfa result = Nfa.BuildAlternation(choiceNfas);
+
+            StateMachine result = StateMachine.BuildAlternation(productionStateMachines.ToArray());
+            result.Label("choice:begin", "choice:end");
             return result;
-        }
-
-        public void AddChoice(Production choice)
-        {
-            choices.Add(choice);
-        }
-
-        public void RemoveChoice(Production choice)
-        {
-            choices.Remove(choice);
         }
     }
 }

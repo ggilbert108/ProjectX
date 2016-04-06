@@ -23,8 +23,8 @@ namespace ProjectX.Finite
 
         public void AddTransition(NfaState from, NfaState to, char input)
         {
-            if(input != EPS)
-                Inputs.Add(input);
+            if (input != EPS)
+                AddInput(input);
             from.AddTransition(input, to);
         }
 
@@ -32,7 +32,7 @@ namespace ProjectX.Finite
         {
             foreach (char input in other.Inputs)
             {
-                Inputs.Add(input);
+                AddInput(input);
             }
         }
 
@@ -66,6 +66,14 @@ namespace ProjectX.Finite
 
             AddTransition(InitialState, nfa.InitialState, EPS);
             AddTransition(nfa.FinalState, FinalState, EPS);
+        }
+
+        private void AddInput(char input)
+        {
+            if (input != EPS)
+            {
+                Inputs.Add(input);
+            }
         }
 
         public void Print()

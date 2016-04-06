@@ -1,32 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using ProjectX.Finite;
+﻿using ProjectX.Finite;
 
 namespace ProjectX.Bnf
 {
     public class Character : Production
     {
-        private readonly char character;
+        private Finite.Character character;
 
-        public Character(char character)
+        public Character(string pattern)
+        {
+            character = pattern;
+        }
+
+        public Character(char value)
+        {
+            character = value;
+        }
+
+        private Character(Finite.Character character)
         {
             this.character = character;
         }
 
-        public override Nfa GetStateMachine(Dictionary<Type, NfaState> outer)
+        public override StateMachine GetStateMachine()
         {
-            Nfa result = Nfa.BuildBasic(character);
-            return Nfa.BuildBasic(character);
+            StateMachine stateMachine = StateMachine.BuildBasic(character);
+            stateMachine.Label("character:begin", "character:end");
+            return stateMachine;
         }
 
-        public override int GetHashCode()
+        public static Character operator -(Character character, char ch)
         {
-            return character.GetHashCode();
+            return new Character(character.character - ch);
         }
 
-        public override bool Equals(object obj)
+        public static Character operator -(Character character, string str)
         {
-            return obj.GetHashCode() == GetHashCode();
+            return new Character(character.character - str);
         }
+
     }
 }

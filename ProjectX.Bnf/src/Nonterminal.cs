@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using ProjectX.Finite;
 
 namespace ProjectX.Bnf
@@ -8,50 +7,38 @@ namespace ProjectX.Bnf
     public abstract class Nonterminal : Production
     {
         protected Production Production;
-        private readonly Nfa stateMachine;
+        private readonly StateMachine nfa;
+
+        private static Dictionary<Type, StateMachine> created = new Dictionary<Type, StateMachine>(); 
 
         protected Nonterminal()
         {
-            stateMachine = new Nfa();
+            string typeName = GetType().Name;
+            nfa = new StateMachine($"{typeName}:begin", $"{typeName}:end");
         }
 
-        public bool Matches(string code)
+        public override StateMachine GetStateMachine()
         {
-            Dictionary<Type, NfaState> outer = new Dictionary<Type, NfaState>();
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            Nfa nfa = GetStateMachine(outer);            
-
-            stopwatch.Stop();
-
-            stopwatch.Restart();
-            bool result = nfa.Simulate(code);
-            stopwatch.Stop();
-
-            return result;
-        }
-
-        public override Nfa GetStateMachine(Dictionary<Type, NfaState> outer)
-        {
-            if (outer.ContainsKey(GetType()))
+            if (created.ContainsKey(GetType()))
             {
-                Console.WriteLine("recursion found: " + GetType().Name);
-                Nfa empty = Nfa.BuildBasic(Nfa.EPS);
-                NfaState parent = outer[GetType()];
-                empty.AddTransition(empty.FinalState, parent, Nfa.EPS);
+                StateMachine parent = created[GetType()];
 
-                stateMachine.Encapsulate(empty);
-                return stateMachine;
+                //setup channel through which the parent feeds back to the child
+                int channel = nfa.InitialState.SetAddChannel();
+                nfa.AddTransition(nfa.InitialState, parent.InitialState, StateMachine.EPS);
+                nfa.AddTransition(parent.FinalState, nfa.FinalState, StateMachine.EPS, channel);
+            }
+            else
+            {
+                created[GetType()] = nfa;
+                
+                SetProduction();
+                StateMachine inner = Production.GetStateMachine();
+
+                nfa.Encapsulate(inner);
             }
 
-            SetProduction();
-
-            outer[GetType()] = stateMachine.InitialState;
-            stateMachine.Encapsulate(Production.GetStateMachine(outer));
-            outer.Remove(GetType());
-
-            return stateMachine;
+            return nfa;
         }
 
         public abstract void SetProduction();

@@ -8,7 +8,7 @@ namespace ProjectX.Language
         {
             Production =
                 new Sequence(
-                    new Character("A-Za-z"),
+                    new CharacterClass("[A-Za-z]"),
                     new Optional(
                         new IdentifierTail()));
         }
@@ -20,7 +20,7 @@ namespace ProjectX.Language
         {
             Production =
                 new Sequence(
-                    new Character("A-Za-z0-9|_"),
+                    new CharacterClass("[A-Za-z0-9]"),
                     new Optional(
                         new IdentifierTail()));
         }

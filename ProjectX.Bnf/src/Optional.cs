@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ProjectX.Finite;
+﻿using ProjectX.Finite;
 
 namespace ProjectX.Bnf
 {
@@ -13,10 +11,15 @@ namespace ProjectX.Bnf
             this.option = option;
         }
 
-        public override Nfa GetStateMachine(Dictionary<Type, NfaState> outer)
+        public override StateMachine GetStateMachine()
         {
-            Nfa empty = Nfa.BuildBasic(Nfa.EPS);
-            return Nfa.BuildStar(option.GetStateMachine(outer));
+            StateMachine empty = StateMachine.BuildBasic(StateMachine.EPS);
+            StateMachine productionStateMachine = option.GetStateMachine();
+            //TODO: add event handler
+
+            StateMachine result = StateMachine.BuildAlternation(empty, productionStateMachine);
+            result.Label("option:begin", "option:end");
+            return result;
         }
     }
 }

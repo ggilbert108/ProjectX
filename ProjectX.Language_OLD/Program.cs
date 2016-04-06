@@ -7,8 +7,8 @@ namespace ProjectX.Language
     {
         public static void Main()
         {
-            Nonterminal nonterminal = new ptr_operator();
-            Console.WriteLine(nonterminal.Matches("declarator"));
+            Nonterminal nonterminal = new iteration_statement();
+            Console.WriteLine(nonterminal.Matches("w3hile(3abcde)"));
         }
     }
 }
